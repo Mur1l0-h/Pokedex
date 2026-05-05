@@ -1,4 +1,7 @@
 *.log
+*.png
+*.jpg
+
 .DS_Store
 .env
 .env.backup

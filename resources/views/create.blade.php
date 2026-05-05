@@ -40,7 +40,7 @@
         .main-screen { 
             background-color: #222; 
             border-radius: 8px; 
-            height: 480px; /* Increased vertical height as requested */
+            height: 480px; 
             overflow-y: auto; 
             border: 3px solid #111; 
             padding: 20px;
@@ -53,14 +53,6 @@
             width: 100%; padding: 10px; border-radius: 4px; border: none; 
             background: #333; color: #fff; margin-top: 5px; box-sizing: border-box;
             font-size: 16px;
-        }
-
-        /* Styling for the file upload field */
-        .reg-form input[type="file"] {
-            background: #444;
-            padding: 5px;
-            font-family: 'VT323', monospace;
-            cursor: pointer;
         }
 
         .controls-row {
@@ -115,45 +107,28 @@
             box-shadow: inset 3px 3px 10px rgba(0,0,0,0.3);
         }
 
-        /* Hide the actual file input */
-#official_artwork {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-}
+        /* --- NEW ERROR BOX STYLES --- */
+        .error-box {
+            background-color: #8b0000;
+            color: #ff8a80;
+            padding: 10px;
+            border: 2px solid #ff5252;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-family: 'Flexo', sans-serif;
+            font-size: 14px;
+        }
+        .error-box ul { margin: 0; padding-left: 20px; }
 
-/* Style the label to look like a Pokédex button/input */
-.custom-file-upload {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    background: #444; /* Match your other input backgrounds */
-    color: #51ae5e;   /* Retro Green text */
-    border: 2px dashed #51ae5e;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: center;
-    font-family: 'VT323', monospace;
-    font-size: 18px;
-    box-sizing: border-box;
-    transition: all 0.2s;
-}
-
-.custom-file-upload:hover {
-    background: #555;
-    border-style: solid;
-    color: #fff;
-}
-
-/* Style for when a file is selected (we'll trigger this with JS) */
-.file-selected {
-    border-color: #ffcb05;
-    color: #ffcb05;
-}
+        /* Custom file upload styles */
+        #official_artwork { width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1; }
+        .custom-file-upload {
+            display: block; width: 100%; padding: 10px; margin-top: 5px; background: #444; color: #51ae5e;   
+            border: 2px dashed #51ae5e; border-radius: 4px; cursor: pointer; text-align: center;
+            font-family: 'VT323', monospace; font-size: 18px; box-sizing: border-box; transition: all 0.2s;
+        }
+        .custom-file-upload:hover { background: #555; border-style: solid; color: #fff; }
+        .file-selected { border-color: #ffcb05; color: #ffcb05; }
     </style>
 </head>
 <body>
@@ -172,9 +147,20 @@
             <div class="main-screen">
                 <h2 style="margin-top: 0; color: #fff; border-bottom: 2px solid #51ae5e; padding-bottom: 5px;">REGISTER POKÉMON</h2>
                 
+                @if ($errors->any())
+                    <div class="error-box">
+                        <strong>ERROR DETECTED:</strong>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <div class="reg-form">
                     <label>Name</label>
-                    <input type="text" name="name" placeholder="Enter name..." required>
+                    <input type="text" name="name" value="{{ old('name') }}" placeholder="Enter name..." required>
 
                     <label>Official Artwork</label>
                     <div class="file-upload-wrapper">
@@ -183,31 +169,32 @@
                             [ SELECT IMAGE FILE ]
                         </label>
                     </div>
+
                     <label>Primary Type</label>
-                    <select name="type">
-                        <option value="grass">Grass</option>
-                        <option value="fire">Fire</option>
-                        <option value="water">Water</option>
-                        <option value="bug">Bug</option>
-                        <option value="normal">Normal</option>
-                        <option value="electric">Electric</option>
-                        <option value="psychic">Psychic</option>
+                    <select name="type1">
+                        <option value="grass" @if(old('type1') == 'grass') selected @endif>Grass</option>
+                        <option value="fire" @if(old('type1') == 'fire') selected @endif>Fire</option>
+                        <option value="water" @if(old('type1') == 'water') selected @endif>Water</option>
+                        <option value="bug" @if(old('type1') == 'bug') selected @endif>Bug</option>
+                        <option value="normal" @if(old('type1') == 'normal') selected @endif>Normal</option>
+                        <option value="electric" @if(old('type1') == 'electric') selected @endif>Electric</option>
+                        <option value="psychic" @if(old('type1') == 'psychic') selected @endif>Psychic</option>
                     </select>
 
                     <label>Height (m)</label>
-                    <input type="number" step="0.1" name="height" placeholder="0.7">
+                    <input type="number" step="0.1" name="height" value="{{ old('height') }}" placeholder="0.7">
 
                     <label>Weight (kg)</label>
-                    <input type="number" step="0.1" name="weight" placeholder="6.9">
+                    <input type="number" step="0.1" name="weight" value="{{ old('weight') }}" placeholder="6.9">
 
                     <label>Base HP</label>
-                    <input type="number" name="hp" placeholder="45">
+                    <input type="number" name="hp" value="{{ old('hp') }}" placeholder="45">
 
                     <label>Attack</label>
-                    <input type="number" name="attack" placeholder="49">
+                    <input type="number" name="attack" value="{{ old('attack') }}" placeholder="49">
 
                     <label>Defense</label>
-                    <input type="number" name="defense" placeholder="49">
+                    <input type="number" name="defense" value="{{ old('defense') }}" placeholder="49">
                 </div>
             </div>
         </div>
@@ -221,7 +208,6 @@
     <div class="data-screen"></div>
 </div>
 
-</body>
 <script>
     function updateFileName(input) {
         const label = document.getElementById('file-label');
@@ -235,4 +221,5 @@
         }
     }
 </script>
+</body>
 </html>

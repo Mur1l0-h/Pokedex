@@ -8,7 +8,7 @@ use App\Http\Controllers\PokemonRotaController;
 
 // GET
 
-Route::get('/pikomon', [PokemonRotaController::class, 'index']);
+Route::get('/pikomon', [PokemonController::class, 'index']);
 
 Route::get('/pikomon/create', [PokemonController::class, 'create']);
 Route::post('/pikomon/registrar', [PokemonController::class, 'store']);

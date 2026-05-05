@@ -21,8 +21,7 @@ return new class extends Migration
             $table->integer("attack");
             $table->integer("defense");
             $table->string("official_artwork");
-            $table->unsignedInteger('created_at');
-            $table->unsignedInteger('updated_at');
+            $table->timestamps();
         });
 
     }
