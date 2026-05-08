@@ -175,10 +175,30 @@
                         <option value="grass" @if(old('type1') == 'grass') selected @endif>Grass</option>
                         <option value="fire" @if(old('type1') == 'fire') selected @endif>Fire</option>
                         <option value="water" @if(old('type1') == 'water') selected @endif>Water</option>
+                        <option value="ground" @if(old('type2') == 'ground') selected @endif>Ground</option>
+                        <option value="fighting" @if(old('type2') == 'fighting') selected @endif>Fighting</option>
                         <option value="bug" @if(old('type1') == 'bug') selected @endif>Bug</option>
                         <option value="normal" @if(old('type1') == 'normal') selected @endif>Normal</option>
                         <option value="electric" @if(old('type1') == 'electric') selected @endif>Electric</option>
                         <option value="psychic" @if(old('type1') == 'psychic') selected @endif>Psychic</option>
+                        <option value="poison" @if(old('type1') == 'poison') selected @endif>Poison</option>
+                        <option value="flying" @if(old('type1') == 'flying') selected @endif>Flying</option>
+                    </select>
+
+                    <label>Secondary Type (Optional)</label>
+                    <select name="type2">
+                        <option value="" @if(old('type2') == '') selected @endif>None</option>
+                        <option value="grass" @if(old('type2') == 'grass') selected @endif>Grass</option>
+                        <option value="fire" @if(old('type2') == 'fire') selected @endif>Fire</option>
+                        <option value="water" @if(old('type2') == 'water') selected @endif>Water</option>
+                        <option value="ground" @if(old('type2') == 'ground') selected @endif>Ground</option>
+                        <option value="fighting" @if(old('type2') == 'fighting') selected @endif>Fighting</option>
+                        <option value="bug" @if(old('type2') == 'bug') selected @endif>Bug</option>
+                        <option value="normal" @if(old('type2') == 'normal') selected @endif>Normal</option>
+                        <option value="electric" @if(old('type2') == 'electric') selected @endif>Electric</option>
+                        <option value="psychic" @if(old('type2') == 'psychic') selected @endif>Psychic</option>
+                        <option value="poison" @if(old('type2') == 'poison') selected @endif>Poison</option>
+                        <option value="flying" @if(old('type2') == 'flying') selected @endif>Flying</option>
                     </select>
 
                     <label>Height (m)</label>
@@ -195,6 +215,15 @@
 
                     <label>Defense</label>
                     <input type="number" name="defense" value="{{ old('defense') }}" placeholder="49">
+                    
+                    <label>Special Attack</label>
+                    <input type="number" name="special-attack" value="{{ old('special-attack') }}" placeholder="65">
+
+                    <label>Special Defense</label>
+                    <input type="number" name="special-defense" value="{{ old('special-defense') }}" placeholder="65">
+
+                    <label>Speed</label>
+                    <input type="number" name="speed" value="{{ old('speed') }}" placeholder="45">
                 </div>
             </div>
         </div>
