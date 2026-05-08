@@ -15,12 +15,12 @@ class PokemonController extends Controller
         $localPokemon = Pokemon::where('name', $nomeOuId)->orWhere('id', $nomeOuId)->first();
 
         if ($localPokemon) {
-            // 1. Build the types array dynamically
+            
             $typesArray = [
                 ['type' => ['name' => $localPokemon->type]]
             ];
             
-            // If the database has a type2, push it into the array!
+            
             if (!empty($localPokemon->type2)) {
                 $typesArray[] = ['type' => ['name' => $localPokemon->type2]];
             }
@@ -30,7 +30,7 @@ class PokemonController extends Controller
                 'name' => $localPokemon->name,
                 'height' => $localPokemon->height * 10, 
                 'weight' => $localPokemon->weight * 10,
-                'types' => $typesArray, // <-- Use the dynamic array here
+                'types' => $typesArray,
                 'stats' => [
                     ['stat' => ['name' => 'hp'], 'base_stat' => $localPokemon->hp],
                     ['stat' => ['name' => 'attack'], 'base_stat' => $localPokemon->attack],
@@ -110,7 +110,7 @@ class PokemonController extends Controller
         $nextId = ($lastPokemon && $lastPokemon->id >= 90000) ? $lastPokemon->id + 1 : 90000;
 
         Pokemon::create([
-            'id' => $nextId, // <-- ASSIGN THE CUSTOM ID HERE
+            'id' => $nextId, 
             'name' => strtolower($request->input('name')),
             'type' => $request->input('type1'),
             'type2' => $request->input('type2'),
